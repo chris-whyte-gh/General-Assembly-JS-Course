@@ -45,7 +45,7 @@
 
 // Answer Starts Here
 const pet_owner = {
-  owner: 'Doug',
+  name: 'Doug',
   address: '710 Puppy Place',
   vaccinated: true
 }
@@ -66,7 +66,17 @@ const pet_owner = {
 
 // Answer Starts Here
 
+const some_pet = {
+  name: 'Super Pup',
+  species: 'dog',
+  breed: 'Siborgi',
+  vocalization: 'bark bark',
+  speak: function () {
+    console.log(this.vocalization);
+  }
+};
 
+some_pet.speak();
 
 // Answer Ends Here
 
