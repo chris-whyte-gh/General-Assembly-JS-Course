@@ -34,30 +34,46 @@ function convertCToF(temp) {
 
 convertCToF(temp);
 
-//Bonus 1 - Still working on this, but wanted to submit before class
-// document won't work in Node.js, so use browser 😎
-
-//Using let since it can be changed by the user (I think that's how it works).
-const userTempString = document.querySelector('#temperature');
-const userTemp = parseInt(userTempString);
-console.log(userTemp);
-
-
-function convertUserFToC(userTemp) {
-  console.log((userTemp - 32) / 1.8);
-}
-
-function convertUserCToF(userTemp) {
-  console.log((1.8 * userTemp + 32));
-}
+//Bonus
+// document won't work in Node.js, so test in the browser 😎
 //Is querySelector preferred over getElementById?
+
+//when the page loads, its already interpreting a function. but the value doesn't exist, so it is null
+
+//await user input, then parse string into number. explicitly return value
+
+function getUserTemp() {
+  const userTempString = document.querySelector('#temperature').value;
+  const userTemp = parseInt(userTempString);
+  return userTemp;
+}
+
+function convertUserFToC() {
+  const userTempInF = (getUserTemp() - 32) / 1.8;
+  console.log(userTempInF);
+  results.innerText = `Here is your temperature in Fahrenheit: ${userTempInF}F`;
+  clear();
+}
+
+function convertUserCToF() {
+  const userTempInC = (1.8 * getUserTemp() + 32);
+  console.log(userTempInC);
+  results.innerHTML = `Here is your temperature in Celsius: ${userTempInC}C`;
+  clear();
+}
+
+//identify button elements
 const buttonFToC = document.querySelector('#fahrenheit_to_celsius');
 const buttonCToF = document.querySelector('#celsius_to_fahrenheit')
 
+//listen for button click, then run appropriate function
 buttonFToC.addEventListener('click', convertUserFToC);
 buttonCToF.addEventListener('click', convertUserCToF);
 
-
-// buttonCToF.addEventListener('click', (userTemp) => convertCToF(function () {
-//    console.log((1.8 * temp + 32));
-// }));
+//Should these be at the top of the script?
+//query for results element
+const results = document.querySelector('#result')
+//clear out value after user submits somethihg
+const clear = () => {
+  document.querySelector('#temperature').value = null
+};
