@@ -19,9 +19,21 @@
 let count = 99;
 
 console.log('Time for a song!\n');
+
 while (count !== 0) {
-  console.log(`${count} bottles of beer on the wall, \n ${count} bottles of beer.\n Take one down, pass it around `);
-  count--;
-  console.log(`${count} bottles of beer on the wall`);
-  console.log('-----');
+    console.log(`${count} bottles of beer on the wall,\n${count} bottles of beer.\nTake one down, pass it around `);
+    count--;
+  if (count > 1) {
+    console.log(`${count} bottles of beer on the wall.`);
+    console.log('-----');
+  } else {
+    console.log(`${count} bottle of beer on the wall.`);
+    console.log('-----');
+    console.log(
+      `${count} bottle of beer on the wall,\n${count} bottle of beer.\nTake one down, pass it around \nNo more bottles of beer on the wall`,
+    );
+    console.log('\n');
+    console.log(`No more bottles of beer on the wall, no more bottles of beer.\nGo to the store and buy some more, 99 bottles of beer on the wall.`);
+    break;
+  }
 }
