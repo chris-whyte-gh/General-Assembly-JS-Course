@@ -1,5 +1,17 @@
 //Had some trouble figuring this out, referenced this wesbos video a bit: https://github.com/wesbos/JavaScript30/blob/master/01%20-%20JavaScript%20Drum%20Kit/index-FINISHED.html
 
+//Started by saving all the audio elements to constants, but, figured there would be a better way to loop through elements on the page. Couldn't figure that out :/
+
+// const clap = document.querySelector('.clap-sound');
+// const hihat = document.querySelector('.hihat-sound');
+// const kick = document.querySelector('.kick-sound');
+// const openhat = document.querySelector('.openhat-sound');
+// const boom = document.querySelector('.boom-sound');
+// const ride = document.querySelector('.ride-sound');
+// const snare = document.querySelector('.snare-sound');
+// const tom = document.querySelector('.tom-sound');
+// const tink = document.querySelector('.tink-sound');
+
 //Created a function to play the audio on an event (keydown)
 function play(e) {
 
