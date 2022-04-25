@@ -20,8 +20,6 @@
 'use strict';
 
 //London Lat 51.5 Long -0.12
-
-
 const apikey = '5683f9d231d7106415cf913c2c273739';
 const locationId = document.getElementById('location');
 const tempId = document.getElementById('temp');
@@ -35,18 +33,33 @@ const convertKToC = (locationTemp) => {
   return degCInt;
 }
 
-async function getWeather() {
-  fetch(weatherUrl + 'lat=51.5&lon=-0.12&appid=' + apikey)
-    .then(response => response.json())
-    .then(data => {
-      //console.log(data.main.temp)
-      const locationTemp = data.main.temp
-      const tempInC = convertKToC(locationTemp)
-      console.log(tempInC + 'c');
-      return tempInC;
+const getWeather = async () => {
+  try {
+    const response = await fetch(weatherUrl + 'lat=51.5&lon=-0.12&appid=' + apikey);
+
+    if (response.ok) {
+      const data = await response.json();
+      //console.log(data.main.temp);
+      return data.main.temp;
     }
-  );
+
+  } catch (error) {
+    console.error({ error });
+  }
 }
 
-tempId.innerText = getWeather();
+async function convertTempToC() {
+  const locationTemp = await getWeather();
+  const tempInC = convertKToC(locationTemp);
+  return tempInC;
+
+}
+
+const tempResult = convertTempToC();
+console.log(tempResult + 'c');
+//Its returning Object Promise, instead of data.main.temp
+  //console.log(locationTemp);
+
+
+tempId.innerText = tempResult;
 
