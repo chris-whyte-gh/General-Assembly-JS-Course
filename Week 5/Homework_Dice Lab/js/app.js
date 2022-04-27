@@ -35,7 +35,6 @@ const firstClassId = document.getElementById('first-die')
 // * get the first die by ID and update the CSS class name to secondDie
 const secondClassId = document.getElementById('second-die')
 
-
 // 2) Create code that runs the function you created whenever the button with the
 //    ID value 'roll-dice' is clicked.
 

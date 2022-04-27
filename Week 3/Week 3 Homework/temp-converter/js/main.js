@@ -43,7 +43,7 @@ convertCToF(temp);
 //await user input, then parse string into number. explicitly return value
 
 function getUserTemp() {
-  const userTempString = document.querySelector('#temperature').value;
+  const userTempString = document.querySelector('#temperature').value; 
   const userTemp = parseInt(userTempString);
   return userTemp;
 }

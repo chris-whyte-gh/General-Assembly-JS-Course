@@ -40,6 +40,7 @@ const getWeather = async () => {
     if (response.ok) {
       const data = await response.json();
       //console.log(data.main.temp);
+      //const { main } = data Destruct
       return data.main.temp;
     }
 
@@ -48,18 +49,22 @@ const getWeather = async () => {
   }
 }
 
+//async function. returns a promise, not a result
 async function convertTempToC() {
   const locationTemp = await getWeather();
   const tempInC = convertKToC(locationTemp);
   return tempInC;
-
 }
 
-const tempResult = convertTempToC();
-console.log(tempResult + 'c');
-//Its returning Object Promise, instead of data.main.temp
-  //console.log(locationTemp);
+convertTempToC()
+  .then((locationTemp) => {
+  console.log(locationTemp);
+    tempId.innerHTML = locationTemp + "c";
+  ;
+})
+  .catch((error) => {
+  console.log(error);
+  })
 
 
-tempId.innerText = tempResult;
 
