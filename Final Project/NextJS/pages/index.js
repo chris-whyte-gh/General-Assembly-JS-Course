@@ -1,7 +1,10 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import { useState } from 'react'
+import Hikes from '../components/hikes'
 
 export default function Home() {
+  const [apiResponse, setapiResponse] = useState(null)
   return (
     <div className="container">
       <Head>
@@ -10,7 +13,7 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1 className="title">Fun APIs</h1>
+        <h1 className="title">General Assembly Final Project</h1>
         <div className="grid">
           <p className="card">
             <Link href="/apis/dad_joke">
@@ -29,12 +32,19 @@ export default function Home() {
             </Link>
           </p>
           <p className="card">
-            <Link href="/apis/learn_react">
-              <button>React Examples &rarr;</button>
+            <Link href="/apis/notes">
+              <button>Notes App &rarr;</button>
             </Link>
           </p>
         </div>
 
+    
+        <Hikes setapiResponse={setapiResponse} />
+        <div>
+
+          {apiResponse ? JSON.stringify(apiResponse) : null}
+          {/* Or can also show empty element */}
+        </div>
       </main>
 
       {/* <footer>

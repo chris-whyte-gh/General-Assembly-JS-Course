@@ -9,8 +9,6 @@ export default function dadJoke() {
       <p>Dad jokes come from <a href="http://icanhazdadjoke.com" target="_blank">icanhazdadjoke.com/</a></p>
       <p>
       This API is a bit different than the Owen Wilson one because the API returns an HTML doc. This needs to be parsed and is handled a bit differently by adding a header</p>
-
-
         <div>
           <button onClick={async (e) => {
             e.preventDefault();
