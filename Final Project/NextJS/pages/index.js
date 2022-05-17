@@ -2,9 +2,16 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useState } from 'react'
 import Hikes from '../components/hikes'
+import Owen_wilson from '../components/owen_wilson'
+import Notes from '../components/notes';
+import Dad_jokes from '../components/dad_jokes'
+import ReactAudioPlayer from 'react-audio-player';
+
 
 export default function Home() {
+  // Destructuring the api response to use useState. This allows us to access and change variables
   const [apiResponse, setapiResponse] = useState(null)
+
   return (
     <div className="container">
       <Head>
@@ -14,21 +21,10 @@ export default function Home() {
 
       <main>
         <h1 className="title">General Assembly Final Project</h1>
-        <div className="grid">
+        {/* <div className="grid">
           <p className="card">
             <Link href="/apis/dad_joke">
               <button>Get Dad Joke API &rarr;</button>
-            </Link>
-          </p>
-          <p className="card">
-            <Link href="/apis/owen_wilson">
-              <button>Get Owen Wilson API &rarr;</button>
-            </Link>
-          </p>
-
-          <p className="card">
-            <Link href="/apis/hikes">
-              <button>Hiker API&rarr;</button>
             </Link>
           </p>
           <p className="card">
@@ -36,27 +32,52 @@ export default function Home() {
               <button>Notes App &rarr;</button>
             </Link>
           </p>
+        </div> */}
+
+        <div className="grid">
+          <div className="card">
+            <Owen_wilson setapiResponse={setapiResponse} />
+          </div>
+          <div className="card">
+            <Dad_jokes setapiResponse={setapiResponse} />
+          </div>
+          <div className="card">
+            <Hikes setapiResponse={setapiResponse} />
+          </div>
         </div>
-
-    
-        <Hikes setapiResponse={setapiResponse} />
         <div>
+          {/* How to make this conditional based on the API I call */}
+          {/* {apiResponse ? JSON.stringify(apiResponse) : null} */}
+          {/* {apiResponse ? (
+            <>
+              <p>Wow!</p>
+              <ReactAudioPlayer
+                src={apiResponse}
+                controls
+                style={{ width: '300px' }}
+              />
+            </>
+          ) : null} */}
+          {apiResponse ? (
+            <>
+              <h3>Activities for Georgia</h3>
+              <div>
+                {data.map(result => {
+                  const { fullName, description } = result;
 
-          {apiResponse ? JSON.stringify(apiResponse) : null}
-          {/* Or can also show empty element */}
+                  return (
+                    <>
+                      <li key={fullName} className="card"></li>
+                      <p>{description}</p>
+                    </>
+                  );
+
+                })}
+              </div>
+            </>
+          ) : null}
         </div>
       </main>
-
-      {/* <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel" className="logo" />
-        </a>
-      </footer> */}
 
       <style jsx>{`
         .container {
