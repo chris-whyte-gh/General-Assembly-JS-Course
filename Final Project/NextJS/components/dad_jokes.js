@@ -1,10 +1,12 @@
-export default function dadJokes({ setapiResponse }) {
+export default function dadJokes({ setapiResponse, setapiType }) {
   return (
     <>
+      <br />
+      <br />
       <button
         onClick={async (e) => {
           e.preventDefault();
-
+          setapiType("dadJokes")
           const response = await fetch('http://icanhazdadjoke.com', {
             headers: { Accept: 'application/json' },
           });

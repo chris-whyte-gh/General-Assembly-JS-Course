@@ -1,9 +1,12 @@
-export default function owenWilson({ setapiResponse }) {
+//component is taking in two props (k:v value index.js)
+export default function owenWilson({ setapiResponse, setapiType, anything }) {
+  // console.log(anything);
   return (
     <button
       onClick={async (e) => {
         e.preventDefault();
-
+        //setter function
+        setapiType("owenWilson")
         const response = await fetch(
           'https://owen-wilson-wow-api.herokuapp.com/wows/random',
         );

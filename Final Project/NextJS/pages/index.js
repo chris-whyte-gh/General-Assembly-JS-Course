@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { useState } from 'react'
 import Hikes from '../components/hikes'
 import Owen_wilson from '../components/owen_wilson'
-import Notes from '../components/notes';
 import Dad_jokes from '../components/dad_jokes'
 import ReactAudioPlayer from 'react-audio-player';
 
@@ -11,7 +10,48 @@ import ReactAudioPlayer from 'react-audio-player';
 export default function Home() {
   // Destructuring the api response to use useState. This allows us to access and change variables
   const [apiResponse, setapiResponse] = useState(null)
+  // So we know which api is called when the button is clicked.
+  //This is the key, the value is in the component
+  const [apiType, setapiType] = useState(null)
+  // console.log(apiType);
 
+  const renderApiResponse = () => {
+    if (apiType === "owenWilson") {
+      console.log(apiResponse);
+      //console.log(apiType);
+      return (
+        <>
+        <p>Wow!</p>
+        <ReactAudioPlayer
+          src={apiResponse}
+          controls
+          style={{ width: '300px' }}
+        />
+        </>
+)
+    } else if (apiType === "dadJokes") {
+      return (
+        apiResponse
+      )
+    } else if (apiType === "hikes") {
+      return (
+        apiResponse
+        // console.log(apiResponse)
+      );
+    } else {
+      return (null)
+    }
+
+  }
+    //apiResponse ? JSON.stringify(apiResponse) : null;
+
+    //return statement use brackets use {JSX}
+  //   return (
+  //     { apiResponse ? JSON.stringify(apiResponse) : null }
+    //)
+
+
+  //Everything in return is the render function
   return (
     <div className="container">
       <Head>
@@ -21,33 +61,31 @@ export default function Home() {
 
       <main>
         <h1 className="title">General Assembly Final Project</h1>
-        {/* <div className="grid">
-          <p className="card">
-            <Link href="/apis/dad_joke">
-              <button>Get Dad Joke API &rarr;</button>
-            </Link>
-          </p>
-          <p className="card">
-            <Link href="/apis/notes">
-              <button>Notes App &rarr;</button>
-            </Link>
-          </p>
-        </div> */}
 
+        {/* Can make a button component with a k:v prop */}
         <div className="grid">
           <div className="card">
-            <Owen_wilson setapiResponse={setapiResponse} />
+            <Owen_wilson
+              //component props
+              setapiResponse={setapiResponse}
+              setapiType={setapiType}
+              anything={1.2}
+            />
           </div>
           <div className="card">
-            <Dad_jokes setapiResponse={setapiResponse} />
+            <Dad_jokes
+              setapiResponse={setapiResponse}
+              setapiType={setapiType}
+            />
           </div>
           <div className="card">
-            <Hikes setapiResponse={setapiResponse} />
+            <Hikes setapiResponse={setapiResponse} setapiType={setapiType} />
           </div>
         </div>
         <div>
-          {/* How to make this conditional based on the API I call */}
           {/* {apiResponse ? JSON.stringify(apiResponse) : null} */}
+          {renderApiResponse()}
+
           {/* {apiResponse ? (
             <>
               <p>Wow!</p>
@@ -58,11 +96,11 @@ export default function Home() {
               />
             </>
           ) : null} */}
-          {apiResponse ? (
+          {/* {apiResponse ? (
             <>
               <h3>Activities for Georgia</h3>
               <div>
-                {data.map(result => {
+                {data.map((result) => {
                   const { fullName, description } = result;
 
                   return (
@@ -71,11 +109,10 @@ export default function Home() {
                       <p>{description}</p>
                     </>
                   );
-
                 })}
               </div>
             </>
-          ) : null}
+          ) : null} */}
         </div>
       </main>
 
