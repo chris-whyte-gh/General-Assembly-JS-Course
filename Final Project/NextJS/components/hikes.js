@@ -11,7 +11,7 @@ export default function hikes({
 
   return (
     <>
-      <h3>NPS</h3>
+      <h3>National Park Service</h3>
       <p>Get a list of all NPS activities within your state</p>
       <form
         onChange={(e) => {
@@ -75,8 +75,9 @@ export default function hikes({
           <option value="WY">Wyoming</option>
         </select>
       </form>
+      <br />
       <button
-        id = "btn"
+        id="btn"
         onClick={async (e) => {
           e.preventDefault();
           setapiType('hikes');
@@ -88,38 +89,45 @@ export default function hikes({
 
           const activitiesObject = await response.json();
 
-        //Loop through the fullName, description, and images of the array
-        {/* data.data.forEach(element => {
+          {
+            /* Alternative way is to map through array (avoids creating masterArray) */
+          }
+          //Loop through the fullName, description, and images of the array
+          {
+            /* data.data.forEach(element => {
           console.log(element.fullName, element.description, element.images);
-        }); */}
+        }); */
+          }
+
+          let masterArray = [];
 
           for (let i = 0; i < activitiesObject.data.length; i++) {
-            let name = activitiesObject.data[i].fullName;
+            let activityName = activitiesObject.data[i].fullName;
             let description = activitiesObject.data[i].description;
             let images = activitiesObject.data[i].images;
-            console.log(name, description, images);
-            //Only showing one response
-            setapiResponse(name);
+            let imagesArray = images[i].url;
+
+            //ES6 creates object with these as keys, and values as variable names
+            masterArray.push({ activityName, description, imagesArray });
           }
-          {/* setapiResponse(data.data[0].name); */}
-          {/* const listOfActivities = data.map(activity => {
-            return activity.name;
-          }) */}
 
-          {/* setapiResponse(listOfActivities); */}
-
+          setapiResponse(masterArray);
         }}
       >
         Find Park Activities &rarr;
       </button>
 
-      {/* <a onClick={getActivities()} class="button3">
-        Second Button Option
-      </a> */}
-
       <style jsx>{`
         #btn {
+          background-color: white;
           color: green;
+          font-size: 15px;
+          padding: 10px 20px;
+          text-align: center;
+        }
+
+        h3 {
+          text-align: center;
         }
       `}</style>
     </>

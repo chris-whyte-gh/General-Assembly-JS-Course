@@ -16,12 +16,17 @@ export default function Home() {
   // console.log(apiType);
 
   const renderApiResponse = () => {
-    if (apiType === "owenWilson") {
+    // Handling scenario where we haven't received data from API yet. The page is rendering immediately before the API response is ready
+    if (apiResponse === null) {
+      return (<>
+      {/* Handle the case where the API is not ready */}
+      </>)
+    } else if (apiType === "owenWilson") {
       console.log(apiResponse);
       //console.log(apiType);
       return (
         <>
-        <p>Wow!</p>
+        <h2>Wow!</h2>
         <ReactAudioPlayer
           src={apiResponse}
           controls
@@ -31,14 +36,32 @@ export default function Home() {
 )
     } else if (apiType === "dadJokes") {
       return (
-        apiResponse
-      )
+        <>
+          <h2>Is that the Joke?</h2>
+          {apiResponse}
+        </>
+      );
     } else if (apiType === "hikes") {
       return (
-        apiResponse
+        <>
+          {/* This will sometimes error because index.js loads before the api is called */}
+          <h2>Hikes in your state</h2>
+          {apiResponse.map((hike) => {
+            {
+              /* Adding a unique key because we're creating a new item through our map function, and this is how the shadow DOM knows divs are unique */
+            }
+            return (
+              <div key={hike.activityName}>
+                <h2>{hike.activityName}</h2>
+                <p>{hike.description}</p>
+                <img src={hike.imagesArray} width="150px"></img>
+              </div>
+            )
+          })}
+        </>
       );
     } else {
-      return (null)
+      throw new Error("Not a valid API call");
     }
 
   }
@@ -63,7 +86,7 @@ export default function Home() {
 
         {/* Can make a button component with a k:v prop */}
         <div className="grid">
-          <div className="card">
+          <div className="card owen">
             <Owen_wilson
               //component props
               setapiResponse={setapiResponse}
@@ -83,18 +106,14 @@ export default function Home() {
         </div>
         <div>
           {/* {apiResponse ? JSON.stringify(apiResponse) : null} */}
-
-          <div className="card">
-            <h2>Here is your answer</h2>
-            {renderApiResponse()}
-          </div>
-
-
+          <div className="solution">{renderApiResponse()}</div>
         </div>
       </main>
 
       <style jsx>{`
         .container {
+          background-color: #8bc6ec;
+          background-image: linear-gradient(135deg, #8bc6ec 0%, #9599e2 100%);
           min-height: 100vh;
           padding: 0 0.5rem;
           display: flex;
@@ -194,6 +213,10 @@ export default function Home() {
           transition: color 0.15s ease, border-color 0.15s ease;
         }
 
+        .owen {
+          text-align: center;
+        }
+
         .card:hover,
         .card:focus,
         .card:active {
@@ -210,6 +233,10 @@ export default function Home() {
           margin: 0;
           font-size: 1.25rem;
           line-height: 1.5;
+        }
+
+        img {
+          margin: 40px 0 0 0;
         }
 
         .logo {
