@@ -4,8 +4,11 @@ import { useState } from 'react'
 export default function hikes({
   setapiResponse, setapiType
 }) {
+  //GA is the default state if none selected
   const [state, setstate] = useState("GA");
-  console.log(state);
+  // console.log(state);
+
+
   return (
     <>
       <h3>NPS</h3>
@@ -73,21 +76,51 @@ export default function hikes({
         </select>
       </form>
       <button
+        id = "btn"
         onClick={async (e) => {
           e.preventDefault();
           setapiType('hikes');
-          //how to safely store the apikey
+          //store this in an environmental variable
           const apikey = 'ni0oPrLFUiBZB8dCtk1eqaWPclXnmZUpwESRa4D8';
           const response = await fetch(
             `https://developer.nps.gov/api/v1/parks?stateCode=${state}&api_key=${apikey}`,
           );
 
-          const data = await response.json();
-          console.log(data.data[0]);
-          setapiResponse(data.data[0].name);
+          const activitiesObject = await response.json();
+
+        //Loop through the fullName, description, and images of the array
+        {/* data.data.forEach(element => {
+          console.log(element.fullName, element.description, element.images);
+        }); */}
+
+          for (let i = 0; i < activitiesObject.data.length; i++) {
+            let name = activitiesObject.data[i].fullName;
+            let description = activitiesObject.data[i].description;
+            let images = activitiesObject.data[i].images;
+            console.log(name, description, images);
+            //Only showing one response
+            setapiResponse(name);
+          }
+          {/* setapiResponse(data.data[0].name); */}
+          {/* const listOfActivities = data.map(activity => {
+            return activity.name;
+          }) */}
+
+          {/* setapiResponse(listOfActivities); */}
+
         }}
       >
         Find Park Activities &rarr;
       </button>
+
+      {/* <a onClick={getActivities()} class="button3">
+        Second Button Option
+      </a> */}
+
+      <style jsx>{`
+        #btn {
+          color: green;
+        }
+      `}</style>
     </>
   );}

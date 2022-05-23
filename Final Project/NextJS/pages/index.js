@@ -36,7 +36,6 @@ export default function Home() {
     } else if (apiType === "hikes") {
       return (
         apiResponse
-        // console.log(apiResponse)
       );
     } else {
       return (null)
@@ -84,35 +83,13 @@ export default function Home() {
         </div>
         <div>
           {/* {apiResponse ? JSON.stringify(apiResponse) : null} */}
-          {renderApiResponse()}
 
-          {/* {apiResponse ? (
-            <>
-              <p>Wow!</p>
-              <ReactAudioPlayer
-                src={apiResponse}
-                controls
-                style={{ width: '300px' }}
-              />
-            </>
-          ) : null} */}
-          {/* {apiResponse ? (
-            <>
-              <h3>Activities for Georgia</h3>
-              <div>
-                {data.map((result) => {
-                  const { fullName, description } = result;
+          <div className="card">
+            <h2>Here is your answer</h2>
+            {renderApiResponse()}
+          </div>
 
-                  return (
-                    <>
-                      <li key={fullName} className="card"></li>
-                      <p>{description}</p>
-                    </>
-                  );
-                })}
-              </div>
-            </>
-          ) : null} */}
+
         </div>
       </main>
 
