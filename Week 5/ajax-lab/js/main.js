@@ -20,7 +20,7 @@
 'use strict';
 
 //London Lat 51.5 Long -0.12
-const apikey = '5683f9d231d7106415cf913c2c273739';
+const apikey = '';
 const locationId = document.getElementById('location');
 const tempId = document.getElementById('temp');
 const weatherUrl = 'http://api.openweathermap.org/data/2.5/weather?';
