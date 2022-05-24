@@ -8,16 +8,12 @@ export default function hikes({
   const [state, setstate] = useState("GA");
   // console.log(state);
 
-
   return (
     <>
       <h3>National Park Service</h3>
       <p>Get a list of all NPS activities within your state</p>
       <form
         onChange={(e) => {
-          {
-            /* console.log(e.target.value); */
-          }
           setstate(e.target.value);
         }}
       >
@@ -82,7 +78,7 @@ export default function hikes({
           e.preventDefault();
           setapiType('hikes');
           //store this in an environmental variable
-          const apikey = 'ni0oPrLFUiBZB8dCtk1eqaWPclXnmZUpwESRa4D8';
+          const apikey = process.env.NEXT_PUBLIC_HIKES_API_KEY;
           const response = await fetch(
             `https://developer.nps.gov/api/v1/parks?stateCode=${state}&api_key=${apikey}`,
           );
@@ -101,7 +97,8 @@ export default function hikes({
 
           let masterArray = [];
 
-          for (let i = 0; i < activitiesObject.data.length; i++) {
+          {/* I set this to 4 because my api was always failing when calling all the hikes */}
+          for (let i = 0; i < 4; i++) {
             let activityName = activitiesObject.data[i].fullName;
             let description = activitiesObject.data[i].description;
             let images = activitiesObject.data[i].images;
@@ -116,7 +113,6 @@ export default function hikes({
       >
         Find Park Activities &rarr;
       </button>
-
       <style jsx>{`
         #btn {
           background-color: white;
@@ -131,4 +127,22 @@ export default function hikes({
         }
       `}</style>
     </>
-  );}
+  );
+}
+
+function getStaticProps() {
+   return {
+  props: {
+       secret: process.env.HIKES_API_KEY
+  }
+ }
+}
+
+export async function getServerSideProps() {
+  console.log(process.env.HIKES_API_KEY);
+  return {
+    props: {
+      hello: 'world',
+    },
+  };
+}
